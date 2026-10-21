@@ -1,6 +1,6 @@
 package org.example.AmountPetFood;
 
-abstract class Animal {
+public abstract class Animal {
     private String name;
     private Integer age;
     private Double mass;
