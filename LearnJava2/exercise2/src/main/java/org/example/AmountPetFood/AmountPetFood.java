@@ -1,55 +1,60 @@
 package org.example.AmountPetFood;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 public class AmountPetFood {
+    public static final Set<String> TYPES =
+            Set.of("dog", "cat");
+
     public static void main(String[] args) {
         List<Animal> pets = readPets();
         printListPets(pets);
     }
 
-    private static void printListPets(List<Animal> pets){
+    static void printListPets(List<Animal> pets){
         for (Animal a : pets ) System.out.println(a);
     }
 
-    private static List<Animal> readPets(){
+    static List<Animal> readPets(){
         try(Scanner read = new Scanner(System.in)){
             List<Animal> pets = new ArrayList<>();
-            String name, type;
-            Integer age;
-            Double mass;
             int size = readInt(read);
-            while (size > 0) {
-                type = read.nextLine();
-                if (type.equalsIgnoreCase("dog") || type.equalsIgnoreCase("cat")) {
-                    name = read.nextLine();
-                    age = readInt(read);
-                    if (age > 0) {
-                        mass = readDouble(read);
-                        if (mass > 0) {
-                            if (type.equalsIgnoreCase("dog")) {
-                                pets.add(new Dog(name, age, mass));
-                            } else {
-                                pets.add(new Cat(name, age, mass));
-                            }
-                        }else {
-                            System.out.println("Incorrect input. Mass <= 0");
-                        }
-                    }else {
-                        System.out.println("Incorrect input. Age <= 0");
-                    }
-                } else {
-                    System.out.println("Incorrect input. Unsupported pet type");
-                }
-                size--;
+            for (int i = 0; i < size; i++){
+                readPet(read).ifPresent(pets::add);
             }
             return pets;
         }
     }
 
-    private static Double readDouble(Scanner read) {
+    static Optional<Animal> readPet(Scanner read){
+        String type = read.nextLine().trim().toLowerCase();
+        if (!TYPES.contains(type)){
+            System.out.println("Incorrect input. Unsupported pet type");
+            return Optional.empty();
+        }
+        String name = read.nextLine();
+        int age = readInt(read);
+        if (age <= 0) {
+            System.out.println("Incorrect input. Age <= 0");
+            return Optional.empty();
+        }
+        double mass = readDouble(read);
+        if (mass <= 0) {
+            System.out.println("Incorrect input. Mass <= 0");
+            return Optional.empty();
+        }
+        return Optional.of(createPet(type, name, age, mass));
+    }
+
+    static Animal createPet(String type, String name, Integer age, Double mass){
+        return switch (type) {
+            case "dog" -> new Dog(name, age, mass);
+            case "cat" -> new Cat(name, age, mass);
+            default -> throw new IllegalStateException("Unexpected value: " + type);
+        };
+    }
+
+    static Double readDouble(Scanner read) {
         while (true){
             String line = read.nextLine();
             try {
@@ -60,7 +65,7 @@ public class AmountPetFood {
         }
     }
 
-    private static int readInt(Scanner read) {
+    static int readInt(Scanner read) {
         while (true){
             String line = read.nextLine();
             try {

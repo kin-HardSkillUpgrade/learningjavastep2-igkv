@@ -275,13 +275,6 @@ class ListPetsTest {
         }
 
         @Test
-        @DisplayName("тип с пробелами — не распознан (equalsIgnoreCase не тримит)")
-        void typeWithSpaces() {
-            assertTrue(callReadPets("1\n dog \n").isEmpty());
-            assertTrue(outText().contains("Unsupported pet type"));
-        }
-
-        @Test
         @DisplayName("age = 1 — минимальный валидный")
         void minValidAge() {
             assertEquals(1, callReadPets("1\ndog\nRex\n1\n").get(0).getAge());

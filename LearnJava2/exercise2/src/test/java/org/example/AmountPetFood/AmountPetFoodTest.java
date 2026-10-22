@@ -416,13 +416,6 @@ class AmountPetFoodTest {
             assertEquals("Incorrect input. Unsupported pet type\n", outText());
         }
 
-        @Test
-        @DisplayName("тип с пробелами — Unsupported")
-        void typeWithSpaces() {
-            assertTrue(callReadPets("1\n dog \n").isEmpty());
-            assertTrue(outText().contains("Unsupported pet type"));
-        }
-
         // ---------- возраст ----------
 
         @Test

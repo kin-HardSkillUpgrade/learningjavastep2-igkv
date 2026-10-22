@@ -1,49 +1,56 @@
 package org.example.ListPets;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 public class ListPets {
+    public static final Set<String> TYPES =
+            Set.of("dog", "cat");
+
     public static void main(String[] args) {
         List<Animal> pets = readPets();
         printListPets(pets);
     }
 
-    private static void printListPets(List<Animal> pets){
+    static void printListPets(List<Animal> pets){
         for (Animal a : pets ) System.out.println(a);
     }
 
-    private static List<Animal> readPets(){
+    static List<Animal> readPets(){
         try(Scanner read = new Scanner(System.in)){
             List<Animal> pets = new ArrayList<>();
-            String name, type;
-            int age;
             int size = readInt(read);
-            while (size > 0) {
-                type = read.nextLine();
-                if (type.equalsIgnoreCase("dog") || type.equalsIgnoreCase("cat")) {
-                    name = read.nextLine();
-                    age = readInt(read);
-                    if (age > 0) {
-                        if (type.equalsIgnoreCase("dog")) {
-                            pets.add(new Dog(name, age));
-                        } else {
-                            pets.add(new Cat(name, age));
-                        }
-                    }else {
-                        System.out.println("Incorrect input. Age <= 0");
-                    }
-                } else {
-                    System.out.println("Incorrect input. Unsupported pet type");
-                }
-                size--;
+            for (int i = 0; i < size; i++){
+                readPet(read).ifPresent(pets::add);
             }
             return pets;
         }
     }
 
-    private static int readInt(Scanner read) {
+    static Optional<Animal> readPet(Scanner read){
+        String type = read.nextLine().trim().toLowerCase();
+        if (!TYPES.contains(type)){
+            System.out.println("Incorrect input. Unsupported pet type");
+            return Optional.empty();
+        }
+        String name = read.nextLine();
+        int age = readInt(read);
+        if (age <= 0) {
+            System.out.println("Incorrect input. Age <= 0");
+            return Optional.empty();
+        }
+        return Optional.of(createPet(type, name, age));
+    }
+
+
+    static Animal createPet(String type, String name, Integer age){
+        return switch (type) {
+            case "dog" -> new Dog(name, age);
+            case "cat" -> new Cat(name, age);
+            default -> throw new IllegalStateException("Unexpected value: " + type);
+        };
+    }
+
+    static int readInt(Scanner read) {
         while (true){
             String line = read.nextLine();
             try {
