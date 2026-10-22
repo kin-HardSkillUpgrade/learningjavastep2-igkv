@@ -11,11 +11,11 @@ public class ListPets {
         printListPets(pets);
     }
 
-    static void printListPets(List<Animal> pets){
+    private static void printListPets(List<Animal> pets){
         for (Animal a : pets ) System.out.println(a);
     }
 
-    static List<Animal> readPets(){
+    private static List<Animal> readPets(){
         try(Scanner read = new Scanner(System.in)){
             List<Animal> pets = new ArrayList<>();
             int size = readInt(read);
@@ -26,7 +26,7 @@ public class ListPets {
         }
     }
 
-    static Optional<Animal> readPet(Scanner read){
+    private static Optional<Animal> readPet(Scanner read){
         String type = read.nextLine().trim().toLowerCase();
         if (!TYPES.contains(type)){
             System.out.println("Incorrect input. Unsupported pet type");
@@ -42,7 +42,7 @@ public class ListPets {
     }
 
 
-    static Animal createPet(String type, String name, Integer age){
+    private static Animal createPet(String type, String name, Integer age){
         return switch (type) {
             case "dog" -> new Dog(name, age);
             case "cat" -> new Cat(name, age);
@@ -50,7 +50,7 @@ public class ListPets {
         };
     }
 
-    static int readInt(Scanner read) {
+    private static int readInt(Scanner read) {
         while (true){
             String line = read.nextLine();
             try {

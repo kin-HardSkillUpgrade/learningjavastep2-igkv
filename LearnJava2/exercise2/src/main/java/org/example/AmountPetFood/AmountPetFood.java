@@ -11,11 +11,11 @@ public class AmountPetFood {
         printListPets(pets);
     }
 
-    static void printListPets(List<Animal> pets){
+    private static void printListPets(List<Animal> pets){
         for (Animal a : pets ) System.out.println(a);
     }
 
-    static List<Animal> readPets(){
+    private static List<Animal> readPets(){
         try(Scanner read = new Scanner(System.in)){
             List<Animal> pets = new ArrayList<>();
             int size = readInt(read);
@@ -26,7 +26,7 @@ public class AmountPetFood {
         }
     }
 
-    static Optional<Animal> readPet(Scanner read){
+    private static Optional<Animal> readPet(Scanner read){
         String type = read.nextLine().trim().toLowerCase();
         if (!TYPES.contains(type)){
             System.out.println("Incorrect input. Unsupported pet type");
@@ -46,7 +46,7 @@ public class AmountPetFood {
         return Optional.of(createPet(type, name, age, mass));
     }
 
-    static Animal createPet(String type, String name, Integer age, Double mass){
+    private static Animal createPet(String type, String name, Integer age, Double mass){
         return switch (type) {
             case "dog" -> new Dog(name, age, mass);
             case "cat" -> new Cat(name, age, mass);
@@ -54,7 +54,7 @@ public class AmountPetFood {
         };
     }
 
-    static Double readDouble(Scanner read) {
+    private static Double readDouble(Scanner read) {
         while (true){
             String line = read.nextLine();
             try {
@@ -65,7 +65,7 @@ public class AmountPetFood {
         }
     }
 
-    static int readInt(Scanner read) {
+    private static int readInt(Scanner read) {
         while (true){
             String line = read.nextLine();
             try {
