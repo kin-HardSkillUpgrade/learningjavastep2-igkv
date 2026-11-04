@@ -1,4 +1,4 @@
-package interfaces;
+package org.example.IterPets.interfaces;
 
 public interface BaseIterator<T> {
     T next();

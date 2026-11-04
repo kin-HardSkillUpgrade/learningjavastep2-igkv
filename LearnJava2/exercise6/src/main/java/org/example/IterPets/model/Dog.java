@@ -1,4 +1,4 @@
-package model;
+package org.example.IterPets.model;
 
 public class Dog extends Animal{
 
@@ -8,6 +8,6 @@ public class Dog extends Animal{
 
     @Override
     public String toString(){
-        return "model.Dog name = " + getName() + ", age = " + getAge();
+        return "Dog name = " + getName() + ", age = " + getAge();
     }
 }

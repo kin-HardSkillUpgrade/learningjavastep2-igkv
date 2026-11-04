@@ -1,8 +1,8 @@
-package model;
+package org.example.IterPets.model;
 
-abstract class Animal {
-    private String name;
-    private Integer age;
+public abstract class Animal {
+    private final String name;
+    private final Integer age;
 
     public Animal(String name, Integer age){
         this.name = name;
