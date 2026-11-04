@@ -3,5 +3,5 @@ plugins {
 }
 
 application {
-    mainClass.set("org.example.ListsHerbiAndOmniPets.ListsHerbiAndOmniPets")
+    mainClass.set("org.example.PetDietLists.PetDietLists")
 }

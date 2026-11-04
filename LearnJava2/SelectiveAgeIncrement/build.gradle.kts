@@ -3,5 +3,5 @@ plugins {
 }
 
 application {
-    mainClass.set("org.example.IncrAgeCertainPets.IncrAgeCertainPets")
+    mainClass.set("org.example.SelectiveAgeIncrement.SelectiveAgeIncrement")
 }

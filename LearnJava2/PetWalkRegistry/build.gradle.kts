@@ -3,5 +3,5 @@ plugins {
 }
 
 application {
-    mainClass.set("org.example.TrackPetWalks.TrackPetWalks")
+    mainClass.set("org.example.PetWalkRegistry.PetWalkRegistry")
 }

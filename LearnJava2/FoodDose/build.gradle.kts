@@ -3,5 +3,5 @@ plugins {
 }
 
 application {
-    mainClass.set("org.example.AmountPetFood.AmountPetFood")
+    mainClass.set("org.example.FoodDose.FoodDose")
 }
